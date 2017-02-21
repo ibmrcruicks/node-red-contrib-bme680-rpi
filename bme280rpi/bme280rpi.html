@@ -1,0 +1,62 @@
+<script type="text/x-red" data-template-name="bme280rpi">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-bus"><i class="fa fa-map-bus"></i> Bus</label>
+        <select type="text" id="node-input-bus">
+            <option value="1" selected="selected">1</option>
+            <option value="0">0</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-address"><i class="fa fa-exchange"></i> Address</label>
+        <select type="text" id="node-input-address">
+            <option value="0x76" selected="selected">0x76</option>
+            <option value="0x77">0x77</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-interval"><i class="fa fa-refresh"></i> Interval (ms)</label>
+        <input type="text" id="node-input-interval" placeholder="1000">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="bme280rpi">
+    <h2>BME280 Sensor</h2>
+    <br>
+</script>
+
+
+<script type="text/javascript">
+    RED.nodes.registerType('bme280rpi', {
+        category: 'Sensors',
+        defaults: {
+            name: {
+                value: ''
+            },
+            bus:  {
+                value: '1',
+                required: true
+            },
+            address:  {
+                value: '0x76',
+                required: true
+            },
+            interval: {
+                value: 1000,
+                required: true,
+                validate: RED.validators.number()
+            }
+        },
+        color: '#a6bbcf',
+        paletteLabel: 'BME280',
+        inputs: 0,
+        outputs: 1,
+        icon: 'arrow-in.png',
+        label: function(){
+            return this.name || 'BME280';
+        }
+    });
+</script>

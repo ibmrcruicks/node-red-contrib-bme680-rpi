@@ -1,0 +1,28 @@
+{
+  "name": "node-red-contrib-bme280-rpi",
+  "version": "0.0.1",
+  "description": "A node of the Bosch BME 280 sensor for Node-RED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ngi644/node-red-contrib-bme280-rpi.git"
+  },
+  "keywords": [
+    "node-red",
+    "raspi",
+    "bme280"
+  ],
+  "dependencies": {
+    "bme280-sensor": "^0.1.6"
+  },
+  "node-red": {
+    "nodes": {
+      "bme280rpi": "bme280rpi/bme280rpi.js"
+    }
+  },
+  "author": "Takashi Nagai <ngi644@gmail.com> (http://ngi644.net)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ngi644/node-red-contrib-bme280-rpi/issues"
+  },
+  "homepage": "https://github.com/ngi644/node-red-contrib-bme280-rpi#readme"
+}
