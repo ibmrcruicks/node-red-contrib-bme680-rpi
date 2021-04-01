@@ -1,28 +1,28 @@
 {
-  "name": "node-red-contrib-bme280-rpi",
+  "name": "node-red-contrib-bme680-rpi",
   "version": "0.0.1",
-  "description": "A node of the Bosch BME 280 sensor for Node-RED",
+  "description": "A node of the Bosch BME 680 sensor for Node-RED",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ngi644/node-red-contrib-bme280-rpi.git"
+    "url": "git+https://github.com/ibmrcruciks/node-red-contrib-bme680-rpi.git"
   },
   "keywords": [
     "node-red",
     "raspi",
-    "bme280"
+    "bme680"
   ],
   "dependencies": {
-    "bme280-sensor": "^0.1.6"
+    "bme680-sensor": "^1.0.0"
   },
   "node-red": {
     "nodes": {
-      "bme280rpi": "bme280rpi/bme280rpi.js"
+      "bme680rpi": "bme680rpi/bme680rpi.js"
     }
   },
-  "author": "Takashi Nagai <ngi644@gmail.com> (http://ngi644.net)",
+  "author": "Ross Cruickshank <ross@vnet.ibm.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ngi644/node-red-contrib-bme280-rpi/issues"
+    "url": "https://github.com/ibmrcruicks/node-red-contrib-bme680-rpi/issues"
   },
-  "homepage": "https://github.com/ngi644/node-red-contrib-bme280-rpi#readme"
+  "homepage": "https://github.com/ibmrcruicks/node-red-contrib-bme680-rpi#readme"
 }
