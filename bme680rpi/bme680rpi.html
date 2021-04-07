@@ -26,6 +26,19 @@
 <script type="text/x-red" data-help-name="bme680rpi">
     <h2>BME680 Sensor - I2C interface</h2>
     <br>
+    The Bosch BME660 sensor provides 4 observations in <code>msg.payload</code>:
+    <dl>
+    <dt>temperature_C</dt><dd>ambient temperature in degrees Celsius</dd>
+    <dt>humidity_pc</dt><dd>relative humidity as a percentage</dd>
+    <dt>pressure_hPa</dt><dd>barometric/atmospheric pressure in hectoPascal - "standard" pressure being ~1013hPa or 1013mbar</dd>
+    <dt>gas_resistance_Ohms</dt><dd>gas resistance in Ohms - indicating lesser (low resistance) or greater (high resistance) air quality, 
+    based on the higher or lower presence of particles in the ambient air</dd>
+    </dl>
+    
+    The reliability of the gas resistance value is gated by the value of <em>heat_stable</em>, also returned in 
+    <code>msg.payload</code> - if True, the gas_resistance_Ohms value can be used.
+    <p>
+    For more detailed information, visit <a href="https://learn.pimoroni.com/tutorial/sandyj/getting-started-with-bme680-breakout">Pimoroni BME680, getting started</a>    
 </script>
 
 
