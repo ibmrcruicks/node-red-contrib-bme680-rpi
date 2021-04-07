@@ -4,7 +4,7 @@
   "description": "A node of the Bosch BME 680 sensor for Node-RED",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ibmrcruciks/node-red-contrib-bme680-rpi.git"
+    "url": "git+https://github.com/ibmrcruicks/node-red-contrib-bme680-rpi.git"
   },
   "keywords": [
     "node-red",
