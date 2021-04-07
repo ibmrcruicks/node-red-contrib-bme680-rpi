@@ -39,7 +39,7 @@ function bme680rpi(n){
                     heat_stable: heat_stable,
                     temperature_C: temperature,
                     pressure_hPa: pressure,
-                    humidity_%: humidity,
+                    humidity_pc: humidity,
                     gas_resistance_Ohms: gas_resistance
                 };
                 node.send(msg);
