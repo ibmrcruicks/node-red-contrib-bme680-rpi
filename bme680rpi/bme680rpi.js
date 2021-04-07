@@ -1,53 +1,55 @@
 module.exports = function(RED){
+	
+var Bme680 = require('bme680-sensor/lib/bme680.js');
 
-    var bme680Sensor = require('bme680-sensor');
+function bme680rpi(n){
+//init
+	RED.nodes.createNode(this, n);
 
-    function bme680rpi(n){
-        //init
-        RED.nodes.createNode(this, n);
-
-        //properties
-        this.name = n.name;
+//properties
+        this.name = n.name || "BME680";
         this.bus = n.bus;
         this.address = n.address;
         this.interval = n.interval;
-	    //console.log(this.address, this.bus);
-        this.sensor = new bme680Sensor({i2cBusNo: parseInt(this.bus), i2cAddress: parseInt(this.address, 16)});
+        this.sensor = new Bme680( parseInt(this.bus),  parseInt(this.address, 16));
         this.status({});
 
         var node = this;
+        var msg = { topic: node.name + '/' + node.bus + '/' + node.address};
 
-        var msg = { topic:node.name + '/A' + node.bus };
+        node.sensor.initialize()
+		.then(() => {
+		      console.log('BME680 initialization succeeded');
+		})
+		.catch((err) => console.error(`BME680 initialization failed: ${err} `));
 
-        node.sensor.init()
-          .then(() => {
-            console.log('BME680 initialization succeeded');
-          })
-          .catch((err) => console.error(`BME680 initialization failed: ${err} `));
-
-        //poll reading at interval
+//poll reading at interval
         this.timer = setInterval(() => {
-
-            node.sensor.readSensorData()
-                .then((data) => {
-                    var temperature = data.temperature;
-                    var pressure = data.pressure;
-                    var humidity = data.humidity;
-                    var gas_resistance = data.gas_resistance;
-                    msg.temperature = temperature;
-                    msg.pressure = pressure;
-                    msg.humidity = humidity;
-                    msg.gas_resistance = gas_resistance;
-                    msg.calibration_data = data.calibration_data;
-                    msg.payload = JSON.stringify({temperature: temperature, pressure: pressure, humidity: humidity, gas_resistance: gas_resistance});
-                    node.send(msg);
-                })
-                .catch((err) => {
-                  console.log(`BME680 read error: ${err}`);
-                });
+		node.sensor.getSensorData()
+			.then((data) => {
+                const bme680data =  data;
+			    const heat_stable = bme680data.data.heat_stable;
+			    const temperature = bme680data.data.temperature;
+                const pressure = bme680data.data.pressure;
+                const humidity = bme680data.data.humidity;
+                const gas_resistance = bme680data.data.gas_resistance;
+                msg.calibration_data = bme680data.calibration_data;
+                msg.gas_settings = bme680data.gas_settings;
+                msg.payload = {
+                    heat_stable: heat_stable,
+                    temperature_C: temperature,
+                    pressure_hPa: pressure,
+                    humidity_%: humidity,
+                    gas_resistance_Ohms: gas_resistance
+                };
+                node.send(msg);
+            })
+            .catch((err) => {
+                console.log(`BME680 read error: ${err}`);
+            });
         }, node.interval);
-
-        //clear interval on exit
+    
+//clear interval on exit
         this.on('close', function() {
             clearInterval(this.timer);
         });
